@@ -1,11 +1,37 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro'
+import Navbar from '../components/navbar.astro'
+import { getCollection } from 'astro:content'
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const blogs = await getCollection('blog')
 ---
 
 <Layout>
-	<Welcome />
+    <Navbar />
+    <main class='max-w-4xl mx-auto mt-6'>
+        <h1 class='text-2xl font-bold border-b-2'>Blog Posts</h1>
+        <ul class='flex flex-col gap-4 mt-4'>
+            {
+                blogs.map(blog => (
+                    <li class='flex flex-col border-l-2 border-transparent hover:border-l-2 hover:border-black hover:cursor-pointer p-4 group relative'>
+                        <h2 class='text-xl font-bold group-hover:underline group-hover:after:content-["→"] hover:cursor-pointer'>
+                            {blog.data.title}
+                        </h2>
+                        {blog.data.subtitle && (
+                            <p class='text-sm text-gray-500'>
+                                {blog.data.subtitle}
+                            </p>
+                        )}
+                        <p class='text-sm text-gray-500'>
+                            {blog.data.date.toLocaleDateString()}
+                        </p>
+                        <a
+                            href={`/blogs/${blog.slug}`}
+                            class='absolute top-0 left-0 w-full h-full'
+                        />
+                    </li>
+                ))
+            }
+        </ul>
+    </main>
 </Layout>

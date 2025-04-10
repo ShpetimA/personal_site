@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../../layouts/Layout.astro'
+import Navbar from '../../components/navbar.astro'
+import { render } from 'astro:content'
+
+export const getStaticPaths = async () => {
+    const blogs = await getCollection('blog')
+    return blogs.map(blog => ({
+        params: {
+            id: blog.id,
+            slug: blog.slug
+        },
+        props: {
+            blog: blog
+        }
+    }))
+}
+const { blog } = Astro.props
+
+const { Content } = await render(blog)
+---
+
+<Layout>
+    <Navbar />
+    <main class='max-w-4xl mx-auto mt-6'>
+        <h1 class='text-2xl font-bold border-b-2'>{blog.data.title}</h1>
+        <div class='mt-4'>
+            <Content />
+        </div>
+    </main>
+</Layout>

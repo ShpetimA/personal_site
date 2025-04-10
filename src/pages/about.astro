@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/navbar.astro";
+---
+
+<Layout>
+    <Navbar />
+    <div class="max-w-4xl mx-auto mt-6">
+        <h1 class="text-2xl font-bold">Hey there!</h1>
+        <p class="text-xl mt-2">
+            My name is <b>Shpetim</b>, I am software developer who loves to draw
+            and code.<br /> At the moment I am focused on frontend development mainly
+            React but I dabble in other languages aswell like Rust.
+        </p>
+        <p class="text-xl mt-4 font-bold">You can find me at :</p>
+        <ul class="flex gap-3 text-xl">
+            <li class="flex items-center justify-center hover:underline">
+                <a href="https://github.com/ShpetimA">Github</a>
+            </li>
+            <li class="hover:underline">
+                <a href="https://github.com/ShpetimA">Email</a>
+            </li>
+        </ul>
+    </div>
+</Layout>
